@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff3dc">
+  <title>井字棋</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+
+    <h1>井字棋</h1>
+
+    <!-- Status line: tells the player what is happening in plain words -->
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <!-- The board. The squares are real buttons, created by script.js -->
+    <div id="board" class="board" role="group" aria-label="井字棋棋盘"></div>
+
+    <!-- Main buttons -->
+    <div class="actions">
+      <button id="newGameBtn" class="btn btn-big btn-green" type="button">新游戏</button>
+      <button id="undoBtn" class="btn btn-big btn-amber" type="button">悔棋</button>
+    </div>
+
+    <!-- Level -->
+    <section class="card" aria-labelledby="levelTitle">
+      <h2 id="levelTitle">电脑难度</h2>
+      <div class="seg levels">
+        <button id="levelEasyBtn" class="btn" type="button" data-level="easy">简单</button>
+        <button id="levelNormalBtn" class="btn" type="button" data-level="normal">普通</button>
+        <button id="levelHardBtn" class="btn" type="button" data-level="hard">困难</button>
+      </div>
+      <p id="levelHint" class="hint"></p>
+    </section>
+
+    <!-- Board size -->
+    <section class="card" aria-labelledby="sizeTitle">
+      <h2 id="sizeTitle">棋盘大小</h2>
+      <div class="seg sizes">
+        <button id="size3Btn" class="btn" type="button" data-size="3">3 × 3　连成3个</button>
+        <button id="size4Btn" class="btn" type="button" data-size="4">4 × 4　连成4个</button>
+        <button id="size5Btn" class="btn" type="button" data-size="5">5 × 5　连成4个</button>
+      </div>
+    </section>
+
+
+    <!-- Sound on / off -->
+    <section class="card">
+      <div class="seg">
+        <button id="soundBtn" class="btn" type="button"></button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+/* =========================================================
+   Tic Tac Toe - styles
+   Big pictures, big buttons, high contrast. Sizes use rem so the
+   page follows the phone's / browser's text-size setting.
+   ========================================================= */
+
+:root {
+  --ink: #1c1c28;          /* main dark text */
+  --navy: #1f3a5f;
+  --green: #14633d;
+  --amber: #8a4b00;
+  --cell: #fffdf5;
+  --frame: #2b3a55;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 100%; }   /* 100% = respect the user's text-size setting */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", Arial, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fff3dc 0%, #e6f0ff 100%);
+}
+
+.app {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0.5rem 0.5rem 2rem;
+}
+
+h1 {
+  margin: 0.5rem 0;
+  text-align: center;
+  font-size: 2.25rem;
+  color: var(--navy);
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  color: var(--navy);
+}
+
+/* ---------- Status line ---------- */
+.status {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem;
+  min-height: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(1.75rem, 6.5vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.25;
+  background: #fff;
+  border: 0.2rem solid var(--navy);
+  border-radius: 1.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+}
+.status-note { display: block; margin-top: 0.25rem; font-size: 1.375rem; font-weight: 600; }
+.status.win  { background: #e1f6e8; border-color: #0a6b2a; color: #0a5a2b; }
+.status.lose { background: #fdeaea; border-color: #8f0f15; color: #8f0f15; }
+.status.draw { background: #e8eefc; border-color: #123a8a; color: #123a8a; }
+
+/* ---------- Board ---------- */
+.board {
+  --gap: clamp(0.4rem, 2vw, 0.9rem);
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), 1fr);   /* --n = squares per row */
+  gap: var(--gap);
+  padding: var(--gap);
+  background: var(--frame);
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.25);
+}
+
+.cell {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: clamp(3.5rem, 19vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--cell);
+  border: none;
+  border-radius: 1rem;
+  box-shadow: inset 0 -0.3rem 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.board.size4 .cell { font-size: clamp(2.5rem, 13vw, 4.5rem); border-radius: 0.75rem; }
+.board.size5 .cell { font-size: clamp(1.75rem, 10vw, 3.25rem); border-radius: 0.6rem; }
+
+/* X (you) is blue, O (computer) is red. The letters are big and bold,
+   so colour is never the only clue. */
+.cell.p { color: #0b4fb3; background: #e3efff; }
+.cell.c { color: #c4121a; background: #fde8e6; }
+
+.cell:hover:not([aria-disabled="true"]) { background: #fff2c2; }
+.cell:active:not([aria-disabled="true"]) { transform: scale(0.96); }
+.cell[aria-disabled="true"] { cursor: default; }
+
+/* The square that was played last (so you can see the computer's move) */
+.cell.last {
+  box-shadow: inset 0 0 0 0.3rem #e08a00;
+  animation: pop 0.35s ease-out;
+}
+
+/* The winning squares: thick green ring + glow */
+.cell.win {
+  position: relative;
+  z-index: 1;
+  background: #fff1a8;
+  box-shadow: 0 0 0 0.35rem #12803f, 0 0 1.5rem 0.6rem rgba(18, 128, 63, 0.75);
+  animation: glow 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.8); }
+  70%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+@keyframes glow {
+  from { box-shadow: 0 0 0 0.35rem #12803f, 0 0 0.75rem 0.2rem rgba(18, 128, 63, 0.6); }
+  to   { box-shadow: 0 0 0 0.45rem #12803f, 0 0 1.75rem 0.8rem rgba(18, 128, 63, 0.9); }
+}
+
+/* Clear keyboard focus */
+button:focus-visible {
+  outline: 0.3rem solid #000;
+  outline-offset: 0.15rem;
+  box-shadow: 0 0 0 0.45rem #ffd400;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  min-height: 3.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  background: #fff;
+  border: 0.2rem solid var(--ink);
+  border-radius: 1rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 0.2rem 0 rgba(0, 0, 0, 0.25);
+}
+.btn:active:not(:disabled) { transform: translateY(0.15rem); box-shadow: none; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; border-style: dashed; }
+
+.btn-big   { min-height: 4.5rem; font-size: 1.75rem; }
+.btn-green { background: var(--green); border-color: var(--green); color: #fff; }
+.btn-amber { background: var(--amber); border-color: var(--amber); color: #fff; }
+
+.actions {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border: 0.15rem solid #d9cfb5;
+  border-radius: 1.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+/* Choice buttons: stacked on phones, side by side on wide screens */
+.seg {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+/* The chosen button is dark with a tick, so colour is not the only clue */
+.seg .btn[aria-pressed="true"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+.seg .btn[aria-pressed="true"]::before { content: "✔ "; }
+
+.hint { margin: 0.75rem 0 0; font-size: 1.25rem; }
+
+@media (min-width: 34rem) {
+  .seg.levels { grid-template-columns: repeat(3, 1fr); }
+  .seg.sizes  { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- Respect "reduce motion" settings ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cell.last, .cell.win { animation: none; }
+}
